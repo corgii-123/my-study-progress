@@ -1,22 +1,15 @@
 <template>
   <div class="block">
-    <el-timeline>
-      <el-timeline-item timestamp="2018/4/12" placement="top">
+    <el-timeline v-loading="isLoading">
+      <el-timeline-item 
+        v-for="(timeLine, index) of timeLineData" 
+        :key="index" 
+        :timestamp="timeLine.timestamp" 
+        placement="top"
+      >
         <el-card>
-          <h4>更新 Github 模板</h4>
-          <p>王小虎 提交于 2018/4/12 20:46</p>
-        </el-card>
-      </el-timeline-item>
-      <el-timeline-item timestamp="2018/4/3" placement="top">
-        <el-card>
-          <h4>更新 Github 模板</h4>
-          <p>王小虎 提交于 2018/4/3 20:46</p>
-        </el-card>
-      </el-timeline-item>
-      <el-timeline-item timestamp="2018/4/2" placement="top">
-        <el-card>
-          <h4>更新 Github 模板</h4>
-          <p>王小虎 提交于 2018/4/2 20:46</p>
+          <h4>{{timeLine.title}}</h4>
+          <p>{{timeLine.content}}}</p>
         </el-card>
       </el-timeline-item>
     </el-timeline>
@@ -24,9 +17,45 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, Ref, ref, watchEffect } from "@vue/runtime-core";
+import { inject } from 'vue';
+import { getTimeLineData } from '../../utils/request'
 
+interface TimeLineType {
+  timestamp: string,
+  title: string,
+  content: string
 }
+
+export default defineComponent({
+  name: 'TimeLine',
+  setup() {
+    const timeLineData = ref<TimeLineType[]>([])
+    const week = inject('week') as Ref
+    const isLoading = ref<boolean>(false)
+
+    watchEffect(async () => {
+      isLoading.value = true
+      try {
+        const { data } = await getTimeLineData(week.value)
+        timeLineData.value = data.data
+        isLoading.value = false
+      } catch(err) {
+        timeLineData.value = [{
+          timestamp: 'xx/xx/xx',
+          title: err.response.data.message,
+          content: err.response.data.message
+        }]
+        isLoading.value = false
+      }
+    })
+
+    return {
+      timeLineData,
+      isLoading
+    }
+  }
+})
 </script>
 
 <style>

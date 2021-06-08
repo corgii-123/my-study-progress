@@ -20,5 +20,13 @@ export default defineConfig({
       }]
     })
   ],
-  base: "/frontend"
+  base: "/frontend/",
+  server: {
+    proxy: {
+      '^/api/.*|^/assets/.*': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      }
+    }
+  }
 })

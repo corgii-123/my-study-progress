@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref } from "@vue/runtime-core";
+import { defineComponent, provide, readonly, ref } from "@vue/runtime-core";
 import Header from '../components/Header/index.vue'
 import MainStory from '../components/MainStory/index.vue'
 import { getWeek } from '../utils/time'
@@ -30,7 +30,7 @@ export default defineComponent({
       week.value = newWeek
     }
 
-    provide('week', week)
+    provide('week', readonly(week))
     provide('getWeek', getWeek)
     provide('setWeek', setWeek)
   }

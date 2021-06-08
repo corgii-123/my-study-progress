@@ -1,12 +1,12 @@
 <template>
   <div class="main-area">
-    <el-tabs type="card" v-model="activeName">
-      <el-tab-pane label="项目进度" name="first">   
+    <el-tabs :stretch="isPhone" type="card" v-model="activeName">
+      <el-tab-pane lazy label="项目进度" name="first">   
         <el-scrollbar height="70vh">
           <Progress />
         </el-scrollbar>
       </el-tab-pane>
-      <el-tab-pane label="项目概述" name="second">
+      <el-tab-pane lazy label="项目概述" name="second">
         <Introduction />
       </el-tab-pane>
     </el-tabs>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, inject, ref} from 'vue'
 import Introduction from '../../views/Introduction.vue'
 import Progress from '../../views/Progress.vue'
 
@@ -25,9 +25,11 @@ export default defineComponent({
     Progress
   },
   setup() {
+    const isPhone = inject('isPhone', false)
     const activeName = ref('first')
     return {
-      activeName
+      activeName,
+      isPhone
     }
   }
 })
