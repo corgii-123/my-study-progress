@@ -2,30 +2,27 @@
   <div class="my-header">
     <el-row class="header-row">
       <el-col :span="14" class="title-wrapper">
-        <el-link 
-          href="/"
-          :underline="false"
-        >
+        <div>
           <el-image
             :src="logoUrl"
             fit="cover"
             class="logo"
           >
           </el-image>
-          <span class="title">桩筒复合基础项目进展</span>
-        </el-link>
+          <span class="title">桩筒复合基础项目 | 日记本📒</span>
+        </div>
       </el-col>
-      <el-col :span="8" style="display: flex; justify-content: flex-start;">
+      <el-col :span="8" style="display: flex; justify-content: flex-start; align-items: center">
+        <strong style="margin-right: 5px; color: #F3FFE2;" v-if="!isPhone">点击👉</strong>
         <WeekSelect></WeekSelect>
       </el-col>
       <el-col :span="2" style="display: flex; align-items: center">
         <div class="avatar-wrapper" v-if="!isPhone">
-          <el-link 
+          <a 
             href="https://github.com/corgii-123"
-            :underline="false"
           >
-            <el-avatar :src="avatarUrl" fit="cover" style="width: 3vh; height: 3vh"></el-avatar>
-          </el-link>
+            <el-avatar :src="avatarUrl" fit="cover" style="width: 3vh; height: 3vh; background-color: #F3FFE2;"></el-avatar>
+          </a>
         </div>
       </el-col>
     </el-row>
@@ -60,7 +57,8 @@ export default defineComponent({
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-    border-left: 2px solid #DCDFE6;
+    border-left: 2px solid #F3FFE2;
+    background: #225378;
     .header-row {
       height: 100%;
       .title-wrapper {
@@ -75,8 +73,9 @@ export default defineComponent({
         .title {
           width: 100%;
           font-weight: bold;
-          font-size: 32px;
+          font-size: 28px;
           margin: 12px;
+          color: #F3FFE2;
         }
       }
     }
@@ -98,7 +97,7 @@ export default defineComponent({
           height: 20px;
         }
         .title {
-          font-size: 14px;
+          font-size: 12px;
           margin: 0;
         }
       }

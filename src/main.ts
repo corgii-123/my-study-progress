@@ -16,7 +16,6 @@ const components = [
   ElCol,
   ElImage,
   ElRow,
-  ElLink,
   ElInput,
   ElAvatar,
   ElDatePicker,

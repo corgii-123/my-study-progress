@@ -6,10 +6,11 @@
         :key="index" 
         :timestamp="timeLine.timestamp" 
         placement="top"
+        color="#EB7F00"
       >
         <el-card>
           <h4>{{timeLine.title}}</h4>
-          <p>{{timeLine.content}}}</p>
+          <p style="word-wrap: break-word; width: 20vw;">{{timeLine.content}}</p>
         </el-card>
       </el-timeline-item>
     </el-timeline>
@@ -33,6 +34,7 @@ export default defineComponent({
     const timeLineData = ref<TimeLineType[]>([])
     const week = inject('week') as Ref
     const isLoading = ref<boolean>(false)
+      const isPhone = inject('isPhone')
 
     watchEffect(async () => {
       isLoading.value = true
@@ -52,12 +54,22 @@ export default defineComponent({
 
     return {
       timeLineData,
-      isLoading
+      isLoading,
+      isPhone
     }
   }
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
+  :deep() .el-timeline {
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 500px) {
+    p {
+      width: 60vw!important;
+    }
+  }
 
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="introduction" v-loading="isLoading">
-    <div v-html="description"></div>
+    <div ref="introduction" v-html="description" style="word-wrap:break-word;"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect } from "@vue/runtime-core";
+import { defineComponent, nextTick, watch, watchEffect } from "@vue/runtime-core";
 import { ref } from 'vue';
 import { getArticle } from '../utils/request'
 
@@ -14,6 +14,19 @@ export default defineComponent({
   setup() {
     const description = ref<string>('')
     const isLoading = ref<boolean>(false)
+    const introduction = ref<HTMLElement>()
+
+    watch(() => {
+      return description.value
+    }, async () => {
+      await nextTick()
+      const imgs = introduction.value?.getElementsByTagName('img')
+      if(imgs) {
+        for(let i = 0; i < imgs.length; i++) {
+          imgs[i].style.maxWidth = '75vw'
+        }
+      }
+    })
     
     watchEffect(async () => {
       isLoading.value = true
@@ -29,7 +42,8 @@ export default defineComponent({
 
     return {
       description,
-      isLoading
+      isLoading,
+      introduction
     }
   }
 })

@@ -5,7 +5,7 @@
         v-model="weekValue"
         type="week"
         format="gggg ww 周"
-        :placeholder="`当前 ${getWeek(new Date())}周`"
+        :placeholder="`👉 第${getWeek(new Date())}周`"
         @change="handleChange"
         style="font-size: 12px; width: 120px;"
       >
@@ -47,6 +47,12 @@ export default defineComponent({
   display: flex;
   align-items: center;
 }
+
+:deep() ::placeholder {
+  color: #EB7F00;
+  opacity: 1;
+}
+
 @media screen and (max-width: 500px) {
   .block {
     position: relative;

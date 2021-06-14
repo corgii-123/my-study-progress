@@ -20,7 +20,7 @@ export default defineConfig({
       }]
     })
   ],
-  base: "/frontend/",
+  base: "/dist/",
   server: {
     proxy: {
       '^/api/.*|^/assets/.*': {

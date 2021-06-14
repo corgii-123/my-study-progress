@@ -9,3 +9,8 @@ export async function getTimeLineData(id: number) {
   const res = await axios.get(`/api/timeline/${id}`)
   return res
 }
+
+export async function getMediaPath(id: number) {
+  const res = await axios.get(`/api/mediaPath/${id}`)
+  return res
+}
